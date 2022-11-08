@@ -18,23 +18,60 @@ shower_state = [(E,Pos,particle type)]
         """
         return len(shower_state)
 
-    def clear_parent(self,int: indx):
+    def clear_parent(self,indx: int):
         """Clear parent particle from shower
         """
         pass
 
+    def ionization_loss(self,delta_x):
+        return None
+
     def propagate(self):
         """Propoagate shower
+        Method will modify the shower class by propagating each of the contents of the shower
         """
-        pass
+        part_indx = 0
+        for part in shower_state:
+            prop_len = surface.radlen()
+            if (abs(part[2]) == 11 && part[0] > surface.e_crit()):
+                print("Bremsstrahlung")
+                shower_state = np.append(shower_state,(part[0]/2, part[1] + prop_len),11)
+                shower_state = np.append(shower_state,(part[0]/2, part[1] + prop_len),22)
 
-    def clear_part(self,indx):
+                #Add check for shower leaks after each new particle is generated
+
+                #Remove parent particle
+                shower_state = np.delete(shower_state,0)
+                part_indx += 1
+            elif(abs(part[2]) == 11 && part[0] < surface.e_crit()):
+                print("electron/positron is no longer showering")
+                shower_state = np.delete(shower_state,0)
+
+            if(part[2] == 22 && part[0] > 2*0.511):
+                print("Pair Produce")
+                shower_state = np.append(shower_state,(part[0]/2, part[1] + prop_len),11)
+                shower_state = np.append(shower_state,(part[0]/2, part[1] + prop_len),-11)
+
+                #Remove parent particle
+                shower_state = np.delete(shower_state,0)
+                part_indx += 1
+            elif(part[2] == 22 && part[0] < 2*0.511):
+                print("Photon is no longer showering")
+                shower_state = np.delete(shower_state,0)
+
+
+    def rem_part(self,indx: int):
         """Clear particle from the shower (because it has left the material)
         """
-        pass
+        shower_state = np.delete(shower_state,indx)
 
 
     def lepton_num(self):
         """Return lepton number from shower
         """
-        return None
+        lepnum = 0
+        for part in shower_state:
+            if abs(part[2] == 11):
+                lepnum += part[2]
+
+        return lepnum/11

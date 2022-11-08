@@ -23,7 +23,7 @@ class Material:
         """
         return 43.79 #g cm^-2
 
-    def ECrit(self):
+    def e_crit(self):
         """Return Critical Energy in MeV
         """
         return 93.11 #MeV (polystyrene)
