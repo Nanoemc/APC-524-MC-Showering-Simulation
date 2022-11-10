@@ -94,8 +94,8 @@ class Shower:
 
                 elif(part[0] <= 2*0.511):
                     #print("Photon is no longer showering")
-                    self.shower_state = np.delete(self.shower_state,0)
-            
+                    del self.shower_state[0] 
+                                
                 continue
 
 
