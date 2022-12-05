@@ -22,9 +22,6 @@ jobs:
         with:
          token:  ${{ secrets.GITHUB_TOKEN }}
 
-      - name: build output
-        run: pipx run nox -s docs
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
