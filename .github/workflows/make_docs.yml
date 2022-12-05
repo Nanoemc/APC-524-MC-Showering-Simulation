@@ -20,7 +20,7 @@ jobs:
         id: pages
         uses: actions/configure-pages@v2
         with:
-         repo-toke:  ${{ secrets.GITHUB_TOKEN }}
+         repo-token:  ${{ secrets.GITHUB_TOKEN }}
 
       - name: build output
         run: pipx run nox -s docs
