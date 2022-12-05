@@ -16,6 +16,7 @@ jobs:
   docs:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v2
@@ -24,9 +25,6 @@ jobs:
 
       - name: build output
         run: pipx run nox -s docs
-        shell: /usr/bin/bash -e {0}
-        env:
-          GITHUB_PAGES: true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
