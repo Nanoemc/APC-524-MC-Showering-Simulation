@@ -8,9 +8,10 @@ Welcome to APC-524-MC-Showering-Simulation's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
 
-
+   usage/installation
+   usage/quickstart
+   ...
 
 Indices and tables
 ==================
