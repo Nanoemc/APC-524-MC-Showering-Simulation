@@ -25,7 +25,6 @@ class Shower:
         # if self.file_name == None and self.write_to_file == True:
         #     file_name = "test_shower.txt"
 
-
     def size(self):
         """Return the number of particles currently in the shower"""
         return len(self.shower_state)
@@ -60,17 +59,21 @@ class Shower:
             if abs(part[2]) == 11:
                 prop_dist = self.surface.radlen()
                 if abs(part[0] > self.surface.e_crit()):
-                    if (self.verbose):
+                    if self.verbose:
                         print("Bremsstrahlung")
-                    self.shower_state.append((part[0] / 2, part[1] + prop_dist, part[2]))
+                    self.shower_state.append(
+                        (part[0] / 2, part[1] + prop_dist, part[2])
+                    )
                     self.shower_state.append((part[0] / 2, part[1] + prop_dist, 22))
                     prop_dist_x0 = self.surface.dist_to_x0(prop_dist)
 
                     # Shower Leakage
                     if part[1] + prop_dist > self.surface.len():
-                        if (self.verbose):
+                        if self.verbose:
                             print("Shower Leakage")
-                        prop_dist_x0 = self.surface.dist_to_x0(part[1] + prop_dist - self.surface.len())
+                        prop_dist_x0 = self.surface.dist_to_x0(
+                            part[1] + prop_dist - self.surface.len()
+                        )
                         del self.shower_state[self.shower_state.size() - 1]
                         del self.shower_state[self.shower_state.size() - 1]
 
@@ -82,7 +85,7 @@ class Shower:
                     part_indx += 1
 
                 elif part[0] < self.surface.e_crit():
-                    if (self.verbose):
+                    if self.verbose:
                         print("electron/positron is no longer showering")
                     del self.shower_state[0]
 
@@ -96,7 +99,7 @@ class Shower:
 
                     # Shower Leakage
                     if part[1] + prop_dist > self.surface.len():
-                        if (self.verbose):
+                        if self.verbose:
                             print("Shower Leakage")
                         del self.shower_state[self.shower_state.size() - 1]
                         del self.shower_state[self.shower_state.size() - 1]
@@ -106,15 +109,15 @@ class Shower:
                     part_indx += 1
 
                 elif part[0] <= 2 * 0.511:
-                    if (self.verbose):
+                    if self.verbose:
                         print("Photon is no longer showering")
                     del self.shower_state[0]
 
                 continue
 
-        if (self.write_to_file):
-            if (self.verbose):
-                print("Writting shower to file")
+        if self.write_to_file:
+            if self.verbose:
+                print("Writing shower to file")
             self.write_shower()
 
     def lepton_num(self):
@@ -143,9 +146,8 @@ class Shower:
 
     def write_shower(self):
         """Write current shower state to a file"""
-        with open(self.file_name, 'a') as f:
+        with open(self.file_name, "a") as f:
             for part in self.shower_state:
                 print(str(part))
                 f.write("%s," % str(part))
             f.write("\n")
-
