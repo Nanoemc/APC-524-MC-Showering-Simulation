@@ -58,21 +58,24 @@ class Shower:
         for i in range(parent_size):
             part = self.shower_state[0]
             if abs(part[2]) == 11:
-                prop_len = self.surface.radlen()
+                prop_dist = self.surface.radlen()
                 if abs(part[0] > self.surface.e_crit()):
                     if (self.verbose):
                         print("Bremsstrahlung")
-                    self.shower_state.append((part[0] / 2, part[1] + prop_len, part[2]))
-                    self.shower_state.append((part[0] / 2, part[1] + prop_len, 22))
+                    self.shower_state.append((part[0] / 2, part[1] + prop_dist, part[2]))
+                    self.shower_state.append((part[0] / 2, part[1] + prop_dist, 22))
+                    prop_dist_x0 = self.surface.dist_to_x0(prop_dist)
 
                     # Shower Leakage
-                    if part[1] + prop_len > self.surface.len():
+                    if part[1] + prop_dist > self.surface.len():
                         if (self.verbose):
                             print("Shower Leakage")
+                        prop_dist_x0 = self.surface.dist_to_x0(part[1] + prop_dist - self.surface.len())
                         del self.shower_state[self.shower_state.size() - 1]
                         del self.shower_state[self.shower_state.size() - 1]
 
                     # Ionization loss should be calculated here so that shower leakage can be accounted for (if needed)
+                    self.e_disp += ionization_loss(prop_dist_x0, self.beta(part[0]))
 
                     # Remove parent particle
                     del self.shower_state[0]
@@ -86,13 +89,13 @@ class Shower:
                 continue
 
             if part[2] == 22:
-                prop_len = self.surface.radlen()
+                prop_dist = self.surface.radlen()
                 if part[0] > 2 * 0.511:
-                    self.shower_state.append((part[0] / 2, part[1] + prop_len, 11))
-                    self.shower_state.append((part[0] / 2, part[1] + prop_len, -11))
+                    self.shower_state.append((part[0] / 2, part[1] + prop_dist, 11))
+                    self.shower_state.append((part[0] / 2, part[1] + prop_dist, -11))
 
                     # Shower Leakage
-                    if part[1] + prop_len > self.surface.len():
+                    if part[1] + prop_dist > self.surface.len():
                         if (self.verbose):
                             print("Shower Leakage")
                         del self.shower_state[self.shower_state.size() - 1]
@@ -131,7 +134,7 @@ class Shower:
         return lepcount
 
     def photon_count(self):
-        """Return the total number of electrons and positrons in the shower"""
+        """Return the total number of photons in the shower"""
         photo_count = 0
         for part in self.shower_state:
             if part[2] == 22:
@@ -139,11 +142,10 @@ class Shower:
         return photo_count
 
     def write_shower(self):
-        """Write current shower object to a file"""
-        with open(self.file_name, 'w') as f:
+        """Write current shower state to a file"""
+        with open(self.file_name, 'a') as f:
             for part in self.shower_state:
-                f.write("%s;" % str(part))
+                print(str(part))
+                f.write("%s," % str(part))
             f.write("\n")
-
-        f.close()
 

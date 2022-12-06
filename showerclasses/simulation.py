@@ -22,7 +22,7 @@ def simple_shower_alg(inshower: Shower, init_e: float):
 
 
 if __name__ == "__main__":
-    giant_block_of_polystyrene = Material(100 * 2000, "")  # 2 km of fun
+    giant_block_of_polystyrene = Material(100 * 2000, "") 
     new_shower_1 = Shower(
         surface=giant_block_of_polystyrene, initial_e=10000, verbose = True, write_to_file = True 
     )  # 10 GeV electron
