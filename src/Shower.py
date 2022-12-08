@@ -14,7 +14,7 @@ class Shower:
     initial_e: float  # (in MeV)
     verbose: bool = False
     write_to_file: bool = False
-    file_name: str = "em_shower_" + str(datetime.today())
+    file_name: str = "em_shower_" + str(datetime.today()) + ".csv"
 
     def __post_init__(self):
         self.shower_state = [(self.initial_e, 0.0, 11)]
