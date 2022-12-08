@@ -1,7 +1,7 @@
 import pytest
 from math import log
-import showerclass.Material
-import showerclass.Shower
+import src.Material
+import src.Shower
 
 
 def lepton_num_cons_test():
@@ -19,9 +19,7 @@ def lepton_num_cons_test():
         shower_itr += 1
         shower_size_list.append(new_shower.size())
 
-        if (
-            shower_size_list[shower_itr] > shower_size_list[shower_itr - 1]
-        ):  # Check while shower not attenuating
+        if shower_size_list[shower_itr] > shower_size_list[shower_itr - 1]:
             assert lepton_num == new_shower.lepton_num()
 
 
@@ -52,4 +50,4 @@ def no_shower_test_energy():
 
 
 def energy_cons_test():
-    return True
+    pass
