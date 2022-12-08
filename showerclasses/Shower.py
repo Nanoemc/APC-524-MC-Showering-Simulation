@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from Material import Material
 import numpy as np
+from datetime import datetime
 
 
 @dataclass
@@ -13,17 +14,16 @@ class Shower:
     initial_e: float  # (in MeV)
     verbose: bool = False
     write_to_file: bool = False
-    file_name: str = "test_shower.txt"
+    file_name: str = "em_shower_" + str(datetime.today())
 
     def __post_init__(self):
         self.shower_state = [(self.initial_e, 0.0, 11)]
         self.e_disp = 0
-        # if self.verbose == None:
-        #     self.verbose = False
-        # if self.write_to_file == None:
-        #     self.write_to_file = False
-        # if self.file_name == None and self.write_to_file == True:
-        #     file_name = "test_shower.txt"
+        if verbose and initial_e < self.surface.e_crit():
+            print(
+                "!!Initial electron energy less than the critical energy of the material!!"
+            )
+            print("!!No shower development will occur in this system!!")
 
     def size(self):
         """Return the number of particles currently in the shower"""
