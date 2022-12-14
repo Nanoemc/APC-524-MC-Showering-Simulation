@@ -25,4 +25,17 @@ def part_num_plot(inShower: Shower, plot_name: str):
 
 
 def energy_disp_plot(inShower: Shower, plot_name: str):
-    pass
+    shower_itr = 0
+    itr_list = [shower_itr]
+    energy_list = [0]
+    while inShower.size() != 0:
+        shower_itr += 1
+        inShower.propagate()
+        itr_list.append(shower_itr)
+        energy_list.append(inShower.e_disp)
+
+    # Make plot
+    plt.plot(iter_list, energy_list, "r*")
+    plt.xlabel()
+    plt.ylabel("Energy lost due to ionization (MeV)")
+    plt.savefig(plot_name)

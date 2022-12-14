@@ -91,7 +91,8 @@ class Shower:
         # for part in self.shower_state:
         for i in range(parent_size):
             part = self.shower_state[0]
-            if abs(part[2]) == 11:
+
+            if abs(part[2]) == 11:  # electron/positron
                 prop_dist = self.surface.radlen()
                 if abs(part[0] > self.surface.e_crit()):
                     if self.verbose:
@@ -112,8 +113,9 @@ class Shower:
                         del self.shower_state[self.shower_state.size() - 1]
                         del self.shower_state[self.shower_state.size() - 1]
 
-                    # Ionization loss should be calculated here so that shower leakage can be accounted for (if needed)
-                    self.e_disp += ionization_loss(prop_dist_x0, self.beta(part[0]))
+                    self.e_disp += ionization_loss(
+                        prop_dist_x0, self.beta(part[0])
+                    )  # Ionization loss
 
                     # Remove parent particle
                     del self.shower_state[0]
@@ -126,7 +128,7 @@ class Shower:
 
                 continue
 
-            if part[2] == 22:
+            if part[2] == 22:  # Photon
                 prop_dist = self.surface.radlen()
                 if part[0] > 2 * 0.511:
                     self.shower_state.append((part[0] / 2, part[1] + prop_dist, 11))
