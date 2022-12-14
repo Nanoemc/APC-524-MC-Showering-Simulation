@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Simulation output
+src/*.txt
+src/*.csv
