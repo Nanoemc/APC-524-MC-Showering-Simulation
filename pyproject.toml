@@ -12,7 +12,7 @@ readme = "README.md"
 requires-python = ">=3.7"
 
 [project.optional-dependencies]
-tests = [
+test = [
   "pytest"
 ]
 docs = [
