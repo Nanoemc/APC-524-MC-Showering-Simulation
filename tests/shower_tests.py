@@ -1,6 +1,6 @@
 import pytest
 from math import log
-import src.Material
+import src.Material_Prop
 import src.Shower
 
 
