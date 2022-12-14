@@ -129,4 +129,5 @@ dmypy.json
 .pyre/
 
 # Simulation output
-showerclass/*.txt
+src/*.txt
+src/*.csv

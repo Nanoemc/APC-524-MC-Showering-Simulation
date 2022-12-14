@@ -7,7 +7,19 @@ from datetime import datetime
 @dataclass
 class Shower:
     """Shower Object
+    This object represents the state of an electromagnetic shower. The object itself is an array of tuples
+    where the tuple contains the energy of the particle, its position, and the particle type.
     shower_state = [(E,Pos,particle type/id)]
+
+    Parameters
+    ----------
+    surface: Material
+    initial_e: float
+    verbose: bool
+    write_to_file: bool
+    file_name: str
+
+
     """
 
     surface: Material
@@ -34,16 +46,39 @@ class Shower:
         return self.surface
 
     def crnt_shower(self):
-        """Return current shower state"""
+        """Return current shower state array"""
         return self.shower_state
 
-    def beta(self, E: float, mass=0.511):
-        """Obtain the propagation speed of an electron/positron"""
-        return np.sqrt(1 - mass**2 / E**2)
+    def beta(self, energy: float, mass: float = 0.511):
+        """Obtain the propagation speed of an electron/positron
+
+        Parameters
+        ----------
+        energy : float
+        mass: float
+
+        Returns
+        -------
+        float
+        Returns the velocity of the particle as a multiple of the speed of light
+        """
+        return np.sqrt(1 - mass**2 / energy**2)
 
     def ionization_loss(self, delta_x: float, beta: float):
         """Determine energy loss of an electron/positron due to ionization
         Here delta_x is taken to be in cm and dE/dx is assumed to be constant for showering leptons
+
+        Parameters
+        ----------
+        delta_x: float
+        beta: float
+
+        Returns
+        -------
+        float
+        Returns the energy loss due to ionization of a charged lepton
+
+
         """
         return self.surface.dens() * 2 * delta_x * 1 / beta**2
 
