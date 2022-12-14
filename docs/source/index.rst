@@ -20,7 +20,7 @@ Contents
 .. toctree::
 
    MC_Showering_Background
-   
+
 Indices and tables
 ==================
 
