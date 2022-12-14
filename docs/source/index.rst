@@ -12,7 +12,15 @@ Welcome to APC-524-MC-Showering-Simulation's documentation!
    usage/installation
    usage/quickstart
    ...
+   
+=======
+Contents
+--------
 
+.. toctree::
+
+   MC_Showering_Background
+   
 Indices and tables
 ==================
 
