@@ -1,7 +1,7 @@
 import pytest
 from math import log
-from src.Material_Prop import Material
-from src.Shower import Shower
+from src.Material.Material_Prop import Material
+from src.Shower.Shower import Shower
 
 
 def lepton_num_cons_test():
@@ -55,15 +55,16 @@ def energy_cons_test():
     new_shower = Shower(surface=block, initial_e=50000)
     shower_size_list = [new_shower.size()]
     shower_itr = 0
+    disp_e = 0
 
     while new_shower.size() != 0:
         new_shower.propagate()
         shower_itr += 1
-        e_system += new_shower.e_disp
+        disp_e += new_shower.e_disp
         shower_size_list.append(new_shower.size())
 
         if shower_size_list[shower_itr] > shower_size_list[shower_itr - 1]:
             for part in new_shower.crnt_shower():
-                e_system += part[0]
+                e_shower_part += part[0]
 
-            assert e_system == init_e
+            assert e_shower_part + disp_e == init_e
