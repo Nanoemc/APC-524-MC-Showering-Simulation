@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from Material.Material_Prop import Material
+from Material_Prop import Material
 import numpy as np
 from datetime import datetime
 

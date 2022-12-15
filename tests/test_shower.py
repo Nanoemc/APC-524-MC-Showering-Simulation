@@ -1,7 +1,7 @@
 import pytest
 from math import log
-from src.Material.Material_Prop import Material
-from src.Shower.Shower import Shower
+from src.Material_Prop import Material
+from src.Shower import Shower
 
 
 def lepton_num_cons_test():
