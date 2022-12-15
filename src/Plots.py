@@ -1,5 +1,5 @@
-from Shower.Shower import Shower
-from Material.Material_Prop import Material
+from Shower import Shower
+from Material_Prop import Material
 import matplotlib.pyplot as plt
 
 

@@ -1,6 +1,6 @@
 from math import log
-from Material.Material_Prop import Material
-from Shower.Shower import Shower
+from Material_Prop import Material
+from Shower import Shower
 
 
 def simple_shower_alg(inshower: Shower, init_e: float):
