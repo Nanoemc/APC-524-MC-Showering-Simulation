@@ -62,6 +62,7 @@ def test_energy_cons():
         shower_itr += 1
         disp_e += new_shower.e_disp
         shower_size_list.append(new_shower.size())
+        e_shower_part = 0
 
         if shower_size_list[shower_itr] > shower_size_list[shower_itr - 1]:
             for part in new_shower.crnt_shower():
