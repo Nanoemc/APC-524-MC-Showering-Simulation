@@ -1,7 +1,7 @@
 import pytest
 from math import log
-import src.Material_Prop
-import src.Shower
+from src.Material.Material_Prop import Material
+from src.Shower.Shower import Shower
 
 
 def lepton_num_cons_test():
@@ -9,7 +9,6 @@ def lepton_num_cons_test():
     block = Material(100 * 200, "")
     new_shower = Shower(surface=block, initial_e=50000)
 
-    shower_max_depth = log2(50000 / new_shower.shower_surface.e_crit())
     shower_itr = 0
     lepton_num = new_shower.lepton_num()
     shower_size_list = [new_shower.size()]
@@ -50,4 +49,22 @@ def no_shower_test_energy():
 
 
 def energy_cons_test():
-    pass
+    """Check energy is conserved before shower attenuates"""
+    init_e = 50000
+    block = Material(100 * 200, "")
+    new_shower = Shower(surface=block, initial_e=50000)
+    shower_size_list = [new_shower.size()]
+    shower_itr = 0
+    disp_e = 0
+
+    while new_shower.size() != 0:
+        new_shower.propagate()
+        shower_itr += 1
+        disp_e += new_shower.e_disp
+        shower_size_list.append(new_shower.size())
+
+        if shower_size_list[shower_itr] > shower_size_list[shower_itr - 1]:
+            for part in new_shower.crnt_shower():
+                e_shower_part += part[0]
+
+            assert e_shower_part + disp_e == init_e
