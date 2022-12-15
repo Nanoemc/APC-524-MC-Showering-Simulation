@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from src.Material_Prop import Material
+from Material_Prop import Material
 import numpy as np
 from datetime import datetime
 
@@ -31,7 +31,7 @@ class Shower:
     def __post_init__(self):
         self.shower_state = [(self.initial_e, 0.0, 11)]
         self.e_disp = 0
-        if verbose and initial_e < self.surface.e_crit():
+        if self.verbose and self.initial_e < self.surface.e_crit():
             print(
                 "!!Initial electron energy less than the critical energy of the material!!"
             )
@@ -113,7 +113,7 @@ class Shower:
                         del self.shower_state[self.shower_state.size() - 1]
                         del self.shower_state[self.shower_state.size() - 1]
 
-                    self.e_disp += ionization_loss(
+                    self.e_disp += self.ionization_loss(
                         prop_dist_x0, self.beta(part[0])
                     )  # Ionization loss
 

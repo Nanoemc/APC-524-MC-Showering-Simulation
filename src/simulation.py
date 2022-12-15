@@ -1,5 +1,5 @@
 from math import log
-from Material import Material
+from Material_Prop import Material
 from Shower import Shower
 
 
