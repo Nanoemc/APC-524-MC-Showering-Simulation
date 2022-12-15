@@ -4,7 +4,7 @@ from src.Material_Prop import Material
 from src.Shower import Shower
 
 
-def lepton_num_cons_test():
+def test_lepton_num_cons():
     """Check lepton number is conserved while shower not attenuating"""
     block = Material(100 * 200, "")
     new_shower = Shower(surface=block, initial_e=50000)
@@ -22,7 +22,7 @@ def lepton_num_cons_test():
             assert lepton_num == new_shower.lepton_num()
 
 
-def particle_count_test():
+def test_particle_count():
     """Check that the total number of particles never exceeds 2^N (limit from analytical model)"""
     block = Material(100 * 200, "")
     new_shower = Shower(surface=block, initial_e=50000)
@@ -35,7 +35,7 @@ def particle_count_test():
         assert new_shower.size() <= 2**shower_itr
 
 
-def no_shower_test_energy():
+def test_no_shower_energy():
     """Check an electron with less energy than the critical energy of a material does not shower"""
     block = Material(100 * 200, "")
     new_shower = Shower(surface=block, initial_e=5, verbose=True)
@@ -48,7 +48,7 @@ def no_shower_test_energy():
     assert shower_itr == 1
 
 
-def energy_cons_test():
+def test_energy_cons():
     """Check energy is conserved before shower attenuates"""
     init_e = 50000
     block = Material(100 * 200, "")
