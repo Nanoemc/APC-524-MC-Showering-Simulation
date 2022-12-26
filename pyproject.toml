@@ -2,23 +2,23 @@
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-[tool.hatch.metadata]
-allow-direct-references = true
-
 [project]
 name = "APC-524-MC-Showering-Simulation"
 version = "0.1"
 readme = "README.md"
 requires-python = ">=3.7"
+dependencies = [
+  "matplotlib",
+  "numpy",
+]
 
 [project.optional-dependencies]
 test = [
   "pytest",
-  "numpy",
 ]
 docs = [
-    "furo",  # Theme
-    "myst_parser >=0.13",  # Markdown
-    "sphinx >=4.0",
-    "sphinx_copybutton",  # Easy code copy button
+  "furo",  # Theme
+  "myst_parser >=0.13",  # Markdown
+  "sphinx >=4.0",
+  "sphinx_copybutton",  # Easy code copy button
 ]
